@@ -4,20 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thư mời cưới - Tràng Đức & Ngọc Phượng</title>
-    <meta name="description" content="Thiệp mời cưới điện tử đẹp mắt và dễ dùng." />
+    <meta name="description" content="Thiệp mời cưới điện tử đầy cảm xúc, nhiều hiệu ứng động và form lời chúc thân thương." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
     <style>
       :root {
-        --bg: #f8f0e7;
-        --panel: #fffdf9;
-        --text: #4c3c35;
-        --muted: #7a685f;
-        --accent: #b77d58;
-        --accent-2: #c99b74;
-        --border: rgba(107, 81, 63, 0.18);
-        --shadow: 0 24px 60px rgba(72, 45, 24, 0.16);
+        --bg: #f7efe8;
+        --panel: rgba(255, 250, 245, 0.94);
+        --text: #4d3a32;
+        --muted: #7a645b;
+        --accent: #b77b58;
+        --accent-2: #d8a97c;
+        --accent-soft: rgba(183, 123, 88, 0.18);
+        --border: rgba(98, 72, 55, 0.2);
+        --shadow: 0 24px 80px rgba(82, 54, 32, 0.16);
       }
 
       * { box-sizing: border-box; }
@@ -26,233 +27,330 @@
         margin: 0;
         font-family: 'Inter', sans-serif;
         color: var(--text);
-        background: linear-gradient(135deg, #f6ece2 0%, #f8efe8 55%, #f4e7dc 100%);
+        background: linear-gradient(135deg, #f7ebe0 0%, #f7efe8 48%, #efe0d1 100%);
+        overflow-x: hidden;
       }
 
-      body::before {
+      body::before,
+      body::after {
         content: '';
         position: fixed;
         inset: 0;
-        background-image:
-          radial-gradient(circle at 10% 20%, rgba(183, 125, 88, 0.14) 0 10px, transparent 11px),
-          radial-gradient(circle at 90% 10%, rgba(201, 155, 116, 0.18) 0 11px, transparent 12px),
-          radial-gradient(circle at 90% 88%, rgba(183, 125, 88, 0.12) 0 9px, transparent 10px);
-        background-size: 220px 220px;
         pointer-events: none;
+        z-index: 0;
+      }
+
+      body::before {
+        background-image:
+          radial-gradient(circle at 10% 15%, rgba(183, 123, 88, 0.12) 0 10px, transparent 11px),
+          radial-gradient(circle at 90% 12%, rgba(216, 169, 124, 0.18) 0 12px, transparent 13px),
+          radial-gradient(circle at 88% 86%, rgba(183, 123, 88, 0.14) 0 10px, transparent 11px);
+        background-size: 240px 240px;
+        animation: drift 18s linear infinite;
+      }
+
+      body::after {
+        background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.4) 40%, transparent 70%);
+        mix-blend-mode: screen;
         opacity: 0.7;
       }
 
       .page {
+        position: relative;
         min-height: 100vh;
         padding: 24px;
+        z-index: 1;
       }
 
-      .cover, .invitation {
-        max-width: 1100px;
+      .cover-screen,
+      .invitation-section {
+        max-width: 1120px;
         margin: 0 auto;
+        border-radius: 34px;
         border: 1px solid var(--border);
-        border-radius: 30px;
-        background: rgba(255, 253, 249, 0.92);
+        background: var(--panel);
         box-shadow: var(--shadow);
         overflow: hidden;
       }
 
-      .cover {
-        min-height: 100vh;
+      .cover-screen {
+        min-height: calc(100vh - 48px);
         display: grid;
         place-items: center;
+        padding: 36px 24px;
         position: relative;
-        padding: 48px 24px;
+        transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
       }
 
-      .cover::before,
-      .cover::after {
+      body.is-open .cover-screen {
+        opacity: 0;
+        transform: translateY(-120%) scale(0.96);
+        pointer-events: none;
+      }
+
+      .cover-screen::before,
+      .cover-screen::after {
         content: '';
         position: absolute;
         inset: 0;
         pointer-events: none;
       }
 
-      .cover::before {
-        background: radial-gradient(circle at top left, rgba(183, 125, 88, 0.12), transparent 35%),
-                    radial-gradient(circle at bottom right, rgba(201, 155, 116, 0.14), transparent 40%);
+      .cover-screen::before {
+        background: radial-gradient(circle at top left, rgba(183, 123, 88, 0.18), transparent 38%),
+                    radial-gradient(circle at bottom right, rgba(216, 169, 124, 0.16), transparent 45%);
       }
 
-      .cover::after {
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 700'%3E%3Cpath d='M350 40c74 96 94 166 94 261 0 67-28 120-77 160-49-40-77-93-77-160 0-95 20-165 94-261Z' fill='%23f0dcb9' fill-opacity='.3'/%3E%3Cpath d='M510 216c56 41 84 99 84 163 0 69-40 118-103 148-56-32-95-82-95-148 0-60 28-115 84-163Z' fill='%23c58c62' fill-opacity='.16'/%3E%3Cpath d='M190 216c56 41 84 99 84 163 0 69-40 118-103 148-56-32-95-82-95-148 0-60 28-115 84-163Z' fill='%23c58c62' fill-opacity='.14'/%3E%3C/svg%3E") center/cover no-repeat;
-        opacity: 0.5;
+      .cover-screen::after {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 700 700'%3E%3Cpath d='M350 40c74 96 94 166 94 261 0 67-28 120-77 160-49-40-77-93-77-160 0-95 20-165 94-261Z' fill='%23f0dcb9' fill-opacity='0.32'/%3E%3Cpath d='M510 216c56 41 84 99 84 163 0 69-40 118-103 148-56-32-95-82-95-148 0-60 28-115 84-163Z' fill='%23c58c62' fill-opacity='0.16'/%3E%3Cpath d='M190 216c56 41 84 99 84 163 0 69-40 118-103 148-56-32-95-82-95-148 0-60 28-115 84-163Z' fill='%23c58c62' fill-opacity='0.14'/%3E%3C/svg%3E") center/cover no-repeat;
+        opacity: 0.6;
+        transform: scale(1.04);
       }
 
-      .cover-inner {
+      .cover-content {
         position: relative;
-        z-index: 1;
-        width: min(100%, 860px);
+        z-index: 2;
+        width: min(100%, 920px);
         text-align: center;
-        padding: 36px 20px;
+        padding: 24px 12px 10px;
       }
 
-      .eyebrow {
+      .spring {
         font-family: 'Great Vibes', cursive;
-        font-size: 2.1rem;
+        font-size: 2.2rem;
         color: var(--accent);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
         letter-spacing: 0.04em;
+        animation: fadeUp 1.1s ease both;
       }
 
-      h1 {
+      .hero-title {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        font-size: clamp(2.3rem, 4.7vw, 3.5rem);
         line-height: 1.15;
         margin: 0 0 12px;
         font-weight: 700;
+        animation: fadeUp 1.1s 0.08s ease both;
       }
 
-      .subhead {
-        font-size: clamp(1rem, 2vw, 1.17rem);
+      .hero-copy {
+        max-width: 680px;
+        margin: 0 auto 26px;
         color: var(--muted);
-        margin: 0 auto 28px;
-        max-width: 620px;
-        line-height: 1.7;
+        line-height: 1.75;
+        font-size: clamp(1rem, 2vw, 1.14rem);
+        animation: fadeUp 1.1s 0.16s ease both;
       }
 
-      .couple-row {
+      .couple-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 20px;
-        margin: 26px 0 30px;
+        margin: 28px 0 34px;
       }
 
-      .card {
-        background: rgba(255,255,255,0.86);
-        border: 1px solid rgba(183,125,88,0.18);
-        border-radius: 24px;
-        padding: 24px 18px;
-        min-height: 240px;
+      .flip-card {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        perspective: 1200px;
+      }
+
+      .flip-card-inner {
+        position: relative;
+        min-height: 270px;
+        transform-style: preserve-3d;
+        transition: transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+      }
+
+      .flip-card.is-flipped .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+
+      .flip-card-face {
+        position: absolute;
+        inset: 0;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        box-shadow: 0 14px 40px rgba(88, 61, 39, 0.08);
-        transition: transform .25s ease, box-shadow .25s ease;
+        align-items: center;
+        justify-content: center;
+        padding: 24px 18px;
+        border-radius: 24px;
+        border: 1px solid rgba(183, 123, 88, 0.16);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 14px 40px rgba(87, 63, 42, 0.08);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
       }
 
-      .card:hover { transform: translateY(-4px); box-shadow: 0 18px 46px rgba(88, 61, 39, 0.12); }
+      .flip-card-face.back {
+        transform: rotateY(180deg);
+        background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(247, 235, 224, 0.95) 100%);
+      }
 
-      .card .avatar {
-        width: 108px;
-        height: 108px;
+      .avatar {
+        width: 112px;
+        height: 112px;
         border-radius: 50%;
-        margin: 0 auto 18px;
-        background: linear-gradient(135deg, rgba(183,125,88,.15), rgba(201,155,116,.35));
         display: grid;
         place-items: center;
         font-size: 2.4rem;
         color: var(--accent);
         font-family: 'Great Vibes', cursive;
-        border: 1px solid rgba(183,125,88,0.18);
+        background: linear-gradient(135deg, rgba(183, 123, 88, 0.15), rgba(216, 169, 124, 0.34));
+        border: 1px solid rgba(183, 123, 88, 0.16);
+        margin-bottom: 18px;
       }
 
-      .card h3 {
-        margin: 0 0 8px;
-        font-size: 1.25rem;
-        font-family: 'Playfair Display', serif;
-      }
-
-      .card .role {
-        font-size: 0.95rem;
+      .role {
+        font-size: 0.9rem;
         text-transform: uppercase;
-        letter-spacing: 0.24em;
+        letter-spacing: 0.22em;
         color: var(--accent);
         font-weight: 700;
       }
 
-      .card .name {
-        font-size: 1.7rem;
+      .name {
         font-family: 'Playfair Display', serif;
-        margin: 4px 0 8px;
+        font-size: 1.7rem;
+        margin: 6px 0 8px;
       }
 
-      .card .date {
-        color: var(--muted);
+      .date {
         font-size: 0.95rem;
+        color: var(--muted);
       }
 
-      .cta {
-        display: inline-flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, var(--accent), var(--accent-2));
-        color: white;
+      .flip-tip {
+        margin-top: 8px;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .open-btn {
         border: 0;
         border-radius: 999px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #fff;
         padding: 14px 24px;
         font-size: 1rem;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
-        box-shadow: 0 14px 30px rgba(183,125,88,0.22);
-        text-decoration: none;
+        box-shadow: 0 16px 34px rgba(183, 123, 88, 0.24);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        animation: pulse 2.1s ease-in-out infinite;
       }
 
-      .cta:hover { transform: translateY(-2px); }
-
-      .invitation {
-        margin-top: 24px;
-        padding: 42px 24px 48px;
+      .open-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 20px 40px rgba(183, 123, 88, 0.28);
       }
 
-      .section-header {
+      .invitation-section {
+        display: none;
+        padding: 44px 24px 56px;
+        position: relative;
+      }
+
+      body.is-open .invitation-section {
+        display: block;
+        animation: fadeIn 0.75s ease both;
+      }
+
+      .ornament {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.75;
+      }
+
+      .ornament::before,
+      .ornament::after {
+        content: '';
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        border: 1px dashed rgba(183, 123, 88, 0.2);
+      }
+
+      .ornament::before {
+        left: -120px;
+        top: -120px;
+        animation: spin 24s linear infinite;
+      }
+
+      .ornament::after {
+        right: -130px;
+        bottom: -120px;
+        animation: spin 30s linear infinite reverse;
+      }
+
+      .section-head {
         text-align: center;
-        margin-bottom: 28px;
+        max-width: 760px;
+        margin: 0 auto 28px;
       }
 
-      .section-header .eyebrow { font-size: 1.75rem; margin-bottom: 4px; }
+      .section-head .spring { font-size: 1.7rem; margin-bottom: 6px; }
 
-      .section-header h2 {
-        margin: 0 0 8px;
+      .section-head h2 {
         font-family: 'Playfair Display', serif;
-        font-size: clamp(1.7rem, 3vw, 2.2rem);
+        font-size: clamp(1.7rem, 3.1vw, 2.3rem);
+        margin: 0 0 10px;
       }
 
-      .section-header p {
-        max-width: 680px;
-        margin: 0 auto;
+      .section-head p {
         color: var(--muted);
-        line-height: 1.7;
+        line-height: 1.75;
+        margin: 0;
       }
 
       .detail-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 18px;
-        margin-bottom: 28px;
+        margin-bottom: 24px;
       }
 
-      .detail-card {
-        background: rgba(255, 255, 255, 0.86);
-        border: 1px solid rgba(183,125,88,0.16);
-        border-radius: 20px;
-        padding: 20px;
+      .detail-card,
+      .form-card {
+        border-radius: 22px;
+        border: 1px solid rgba(183, 123, 88, 0.16);
+        background: rgba(255, 255, 255, 0.92);
+        padding: 22px;
+        box-shadow: 0 10px 30px rgba(87, 63, 42, 0.06);
+        transform: translateY(18px);
+        opacity: 0;
+        transition: transform 0.8s ease, opacity 0.8s ease;
       }
 
-      .detail-card h3 {
+      .detail-card.is-visible,
+      .form-card.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .detail-card h3,
+      .form-card h3 {
         margin: 0 0 10px;
-        font-size: 1rem;
-        letter-spacing: 0.16em;
+        font-size: 0.95rem;
+        letter-spacing: 0.2em;
         text-transform: uppercase;
         color: var(--accent);
       }
 
-      .detail-card p {
-        margin: 6px 0;
+      .detail-card p,
+      .form-card p {
+        margin: 8px 0;
         line-height: 1.7;
+        color: var(--muted);
       }
 
       .form-card {
-        margin-top: 4px;
-        padding: 28px;
-        border-radius: 24px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(250,240,228,0.95));
-        border: 1px solid rgba(183,125,88,0.16);
+        margin-top: 10px;
       }
 
       form {
@@ -266,18 +364,29 @@
       }
 
       label {
-        font-size: 0.95rem;
         font-weight: 600;
+        color: var(--text);
       }
 
-      input, textarea, select {
+      input,
+      textarea,
+      select {
         width: 100%;
-        border: 1px solid rgba(183,125,88,0.24);
+        border: 1px solid rgba(183, 123, 88, 0.24);
         background: #fffdf9;
         border-radius: 14px;
         padding: 12px 14px;
         font: inherit;
         color: var(--text);
+        outline: none;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 4px rgba(183, 123, 88, 0.11);
       }
 
       textarea { min-height: 120px; resize: vertical; }
@@ -292,74 +401,152 @@
         color: #fff;
         font-weight: 700;
         cursor: pointer;
+        transition: transform 0.25s ease;
       }
 
-      .submit-btn:hover { transform: translateY(-1px); }
+      .submit-btn:hover { transform: translateY(-2px); }
+
+      .floating-shape {
+        position: absolute;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.35;
+        filter: blur(0.4px);
+        animation: floatShape 10s ease-in-out infinite;
+      }
+
+      .floating-shape.one {
+        width: 28px; height: 28px; background: rgba(183, 123, 88, 0.22); left: 8%; top: 18%; animation-delay: 0s;
+      }
+      .floating-shape.two {
+        width: 18px; height: 18px; background: rgba(216, 169, 124, 0.22); right: 8%; top: 22%; animation-delay: 1.5s;
+      }
+      .floating-shape.three {
+        width: 24px; height: 24px; background: rgba(183, 123, 88, 0.18); left: 14%; bottom: 18%; animation-delay: 2.6s;
+      }
+      .floating-shape.four {
+        width: 16px; height: 16px; background: rgba(216, 169, 124, 0.25); right: 14%; bottom: 20%; animation-delay: 3.6s;
+      }
+
+      @keyframes drift {
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(30px, -20px, 0); }
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(24px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+      }
+
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes floatShape {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(8deg); }
+      }
 
       @media (max-width: 780px) {
-        .page { padding: 14px; }
-        .cover, .invitation { border-radius: 22px; }
-        .cover { min-height: auto; }
-        .couple-row, .detail-grid, .row { grid-template-columns: 1fr; }
-        .card { min-height: 220px; }
-        .form-card { padding: 20px; }
+        .page { padding: 12px; }
+        .cover-screen, .invitation-section { border-radius: 24px; }
+        .couple-grid, .detail-grid, .row { grid-template-columns: 1fr; }
+        .cover-screen { min-height: auto; }
+        .flip-card-face { min-height: 230px; }
       }
     </style>
   </head>
   <body>
     <div class="page">
-      <section class="cover" id="cover">
-        <div class="cover-inner">
-          <div class="eyebrow">Kính mời</div>
-          <h1>Quý vị & Gia đình</h1>
-          <p class="subhead">Đến dự buổi tiệc cưới đầy yêu thương của hai chúng mình, nơi những lời chúc và niềm vui sẽ được nối kết trong một ngày đặc biệt.</p>
+      <section class="cover-screen" aria-labelledby="cover-title">
+        <div class="floating-shape one"></div>
+        <div class="floating-shape two"></div>
+        <div class="floating-shape three"></div>
+        <div class="floating-shape four"></div>
 
-          <div class="couple-row">
-            <div class="card">
-              <div class="avatar">Đ</div>
-              <div>
-                <div class="role">Chú rể</div>
-                <div class="name">Tràng Đức</div>
-                <div class="date">07.03.2027</div>
+        <div class="cover-content">
+          <div class="spring">Kính mời</div>
+          <h1 id="cover-title" class="hero-title">Quý vị & gia đình</h1>
+          <p class="hero-copy">Đến chung vui cùng buổi lễ thành hôn và tiệc cưới đầy ấm áp của hai chúng mình, nơi có những lời chúc, tiếng cười và những khoảnh khắc đẹp sẽ được lưu giữ mãi mãi.</p>
+
+          <div class="couple-grid">
+            <button class="flip-card" type="button" aria-label="Lật ảnh chú rể" data-card="groom">
+              <div class="flip-card-inner">
+                <div class="flip-card-face front">
+                  <div class="avatar">Đ</div>
+                  <div class="role">Chú rể</div>
+                  <div class="name">Tràng Đức</div>
+                  <div class="date">07.03.2027</div>
+                  <div class="flip-tip">Nhấn để xem thêm</div>
+                </div>
+                <div class="flip-card-face back">
+                  <div class="role">Chú rể</div>
+                  <div class="name">Tràng Đức</div>
+                  <p style="margin:8px 0 0; text-align:center; color:var(--muted); line-height:1.7;">Một người luôn biết mang đến nụ cười và sự bình yên cho những người thân yêu.</p>
+                </div>
               </div>
-            </div>
-            <div class="card">
-              <div class="avatar">P</div>
-              <div>
-                <div class="role">Cô dâu</div>
-                <div class="name">Ngọc Phượng</div>
-                <div class="date">07.03.2027</div>
+            </button>
+
+            <button class="flip-card" type="button" aria-label="Lật ảnh cô dâu" data-card="bride">
+              <div class="flip-card-inner">
+                <div class="flip-card-face front">
+                  <div class="avatar">P</div>
+                  <div class="role">Cô dâu</div>
+                  <div class="name">Ngọc Phượng</div>
+                  <div class="date">07.03.2027</div>
+                  <div class="flip-tip">Nhấn để xem thêm</div>
+                </div>
+                <div class="flip-card-face back">
+                  <div class="role">Cô dâu</div>
+                  <div class="name">Ngọc Phượng</div>
+                  <p style="margin:8px 0 0; text-align:center; color:var(--muted); line-height:1.7;">Một người luôn dịu dàng, ấm áp và làm cho mọi điều trở nên ý nghĩa hơn.</p>
+                </div>
               </div>
-            </div>
+            </button>
           </div>
 
-          <a class="cta" href="#invitation">Mở thiệp</a>
+          <button class="open-btn" id="open-btn" type="button">Mở thiệp</button>
         </div>
       </section>
 
-      <section class="invitation" id="invitation">
-        <div class="section-header">
-          <div class="eyebrow">Lời mời</div>
+      <section class="invitation-section" id="invitation">
+        <div class="ornament"></div>
+        <div class="section-head animate-on-scroll">
+          <div class="spring">Lời mời</div>
           <h2>Hẹn gặp nhau trong ngày trọng đại</h2>
           <p>Trân trọng kính mời quý vị và các bạn tới chung vui cùng gia đình chúng mình trong buổi lễ thành hôn và tiệc mừng cưới đầy ấm áp.</p>
         </div>
 
         <div class="detail-grid">
-          <div class="detail-card">
+          <div class="detail-card animate-on-scroll">
             <h3>Thời gian</h3>
             <p><strong>Thứ Bảy, 07/03/2027</strong></p>
             <p>11:00 - Tiệc cưới bắt đầu</p>
+            <p>Đón tiếp từ 10:30</p>
           </div>
-          <div class="detail-card">
+
+          <div class="detail-card animate-on-scroll">
             <h3>Địa điểm</h3>
             <p><strong>The Garden Bistro - Ecopark Hưng Yên</strong></p>
             <p>Địa chỉ: Ecopark, Hưng Yên</p>
+            <p>Gửi xe và đón tiếp tại cổng chính</p>
           </div>
         </div>
 
-        <div class="form-card">
-          <div class="section-header" style="margin-bottom: 20px;">
-            <div class="eyebrow">Xác nhận</div>
+        <div class="form-card animate-on-scroll">
+          <div class="section-head" style="margin-bottom: 20px;">
+            <div class="spring">Xác nhận</div>
             <h2>Vui lòng gửi lời chúc & xác nhận tham dự</h2>
           </div>
 
@@ -384,6 +571,7 @@
                   <option value="Mẹ Chú Rể">Mẹ Chú Rể</option>
                 </select>
               </div>
+
               <div class="field-group">
                 <label for="attendance">Bạn có tham dự?</label>
                 <select id="attendance" name="select_2" required>
@@ -401,9 +589,33 @@
     </div>
 
     <script>
-      document.querySelector('.cta')?.addEventListener('click', () => {
-        document.getElementById('invitation')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const openBtn = document.getElementById('open-btn');
+      const invitation = document.getElementById('invitation');
+      if (openBtn && invitation) {
+        openBtn.addEventListener('click', () => {
+          document.body.classList.add('is-open');
+          setTimeout(() => {
+            invitation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 600);
+        });
+      }
+
+      document.querySelectorAll('.flip-card').forEach((card) => {
+        card.addEventListener('click', () => {
+          card.classList.toggle('is-flipped');
+        });
       });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.18 });
+
+      document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
 
       const form = document.getElementById('rsvp-form');
       if (form) {
