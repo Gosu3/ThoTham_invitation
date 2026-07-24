@@ -4,10 +4,12 @@ module.exports = async (req, res) => {
   }
 
   const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
   const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const readKey = SUPABASE_ANON_KEY || SUPABASE_SERVICE_ROLE_KEY;
 
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    return res.status(500).json({ error: 'Database not configured. Please add SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.' });
+  if (!SUPABASE_URL || !readKey) {
+    return res.status(500).json({ error: 'Database not configured. Please add SUPABASE_URL and optionally SUPABASE_ANON_KEY or SUPABASE_SERVICE_ROLE_KEY.' });
   }
 
   try {
@@ -15,8 +17,8 @@ module.exports = async (req, res) => {
       `${SUPABASE_URL}/rest/v1/wishes?select=id,full_name,message,guest_of,attendance,created_at&order=created_at.desc&limit=50`,
       {
         headers: {
-          apikey: SUPABASE_SERVICE_ROLE_KEY,
-          Authorization: 'Bearer ' + SUPABASE_SERVICE_ROLE_KEY
+          apikey: readKey,
+          Authorization: 'Bearer ' + readKey
         }
       }
     );

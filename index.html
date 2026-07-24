@@ -9341,13 +9341,12 @@
                                         <input id="wi-iigwokze" type="text" class="full-width full-height" placeholder='Tên Của Bạn' name="full_name" aria-label="Input full_name" required>
                                     </div>
                                 </div>
-                                <div id="w-7mulvcrb" class="com-button p-absolute">
+                                <button id="w-7mulvcrb" type="submit" class="com-button p-absolute" style="border:0; background:transparent; padding:0; cursor:pointer;" aria-label="Gửi Lời Chúc">
                                     <div class="button-css full-height full-width lazy">
                                         <span class="button-loader"></span>
                                         <div class="button-text full-width u-select-none">Gửi Lời Chúc</div>
-                                        <button type="submit" formnovalidate style="display: none;"></button>
                                     </div>
-                                </div>
+                                </button>
                                 <div id="w-w7ut2v49" class="p-absolute">
                                     <div class="textarea-css">
                                         <textarea class="full-width full-height" placeholder='Bạn có gì nhắn nhủ tụi mình không :' name="textarea_input_1" required data-required="1"></textarea>
@@ -13736,6 +13735,63 @@
                 }
             }
             )()
+        </script>
+        <script>
+            (function () {
+                const form = document.getElementById('ip6zr52g');
+                if (!form) {
+                    return;
+                }
+
+                form.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+
+                    const data = new FormData(form);
+                    const payload = {
+                        full_name: (data.get('full_name') || '').toString().trim(),
+                        message: (data.get('textarea_input_1') || '').toString().trim(),
+                        guest_of: (data.get('select_brqsl8') || '').toString(),
+                        attendance: (data.get('select_2') || '').toString()
+                    };
+
+                    if (!payload.full_name || !payload.message || !payload.guest_of || !payload.attendance) {
+                        window.alert('Vui lòng điền đầy đủ thông tin trước khi gửi.');
+                        return;
+                    }
+
+                    const submitButton = form.querySelector('button[type=submit]');
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                    }
+
+                    try {
+                        const response = await fetch('/api/submit', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            const error = await response.json().catch(() => null);
+                            console.error('Submit failed', error);
+                            window.alert('Không gửi được. Vui lòng thử lại sau.');
+                            return;
+                        }
+
+                        window.alert('Cảm ơn bạn! Lời chúc của bạn đã được gửi thành công.');
+                        form.reset();
+                    } catch (error) {
+                        console.error(error);
+                        window.alert('Không gửi được. Vui lòng thử lại sau.');
+                    } finally {
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                        }
+                    }
+                });
+            })();
         </script>
     </body>
 </html>

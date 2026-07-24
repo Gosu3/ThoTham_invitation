@@ -16,6 +16,7 @@
 3. Trong Vercel, triển khai dự án từ repository hoặc upload folder.
 4. Thiết lập biến môi trường trong Vercel project settings:
    - `SUPABASE_URL`: URL Supabase của bạn, ví dụ `https://abc123.supabase.co`
+   - `SUPABASE_ANON_KEY` (tùy chọn, khuyến nghị cho endpoint đọc dữ liệu): Anon/Public Key lấy từ Supabase > Settings > API.
    - `SUPABASE_SERVICE_ROLE_KEY`: Service Role Key lấy từ Supabase > Settings > API.
 
 ## Hướng dẫn tạo database Supabase
