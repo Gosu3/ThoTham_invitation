@@ -309,6 +309,28 @@
         box-shadow: 0 18px 36px rgba(183, 123, 88, 0.14);
       }
 
+      .template-card-actions {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .preview-btn {
+        border: 1px solid rgba(183, 123, 88, 0.18);
+        background: white;
+        color: var(--accent);
+        border-radius: 999px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .preview-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 12px 20px rgba(183, 123, 88, 0.12);
+      }
+
       .template-preview {
         position: relative;
         border-radius: 20px;
@@ -934,7 +956,7 @@
           : templates.filter((template) => template.category === activeFilter);
 
         templateGrid.innerHTML = filtered.map((template) => `
-          <button class="template-card ${selectedTemplate.id === template.id ? 'active' : ''}" data-template="${template.id}" type="button">
+          <div class="template-card ${selectedTemplate.id === template.id ? 'active' : ''}" data-template="${template.id}">
             <div class="template-preview">
               <div class="preview-badge">${template.previewLabel}</div>
               <div class="preview-line short"></div>
@@ -946,7 +968,10 @@
               <span class="chip-label">${template.category}</span>
             </div>
             <p style="margin:0;color:var(--muted);line-height:1.6;font-size:0.95rem;">${template.description}</p>
-          </button>
+            <div class="template-card-actions">
+              <button class="ghost-btn preview-btn" data-template-preview="${template.id}" type="button">Xem trước</button>
+            </div>
+          </div>
         `).join('');
       }
 
@@ -1122,9 +1147,24 @@
       });
 
       templateGrid.addEventListener('click', (event) => {
-        const button = event.target.closest('.template-card');
-        if (!button) return;
-        const templateId = button.dataset.template;
+        const previewButton = event.target.closest('.preview-btn');
+        if (previewButton) {
+          const templateId = previewButton.dataset.templatePreview;
+          if (!templateId) return;
+          state.templateId = templateId;
+          selectedTemplate = getTemplateById(templateId);
+          state.accentColor = selectedTemplate.accent;
+          document.getElementById('accentColor').value = selectedTemplate.accent;
+          renderSelectOptions();
+          renderTemplates();
+          renderPreview();
+          document.getElementById('previewCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+
+        const card = event.target.closest('.template-card');
+        if (!card) return;
+        const templateId = card.dataset.template;
         state.templateId = templateId;
         selectedTemplate = getTemplateById(templateId);
         state.accentColor = selectedTemplate.accent;
